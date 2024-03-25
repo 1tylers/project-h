@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Parts List</title>
+    <style>
+        /* Add some basic styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .part-image {
+            max-width: 100px;
+            max-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Parts List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Number</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Weight</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for part in parts %}
+            <tr>
+                <td><img class="part-image" src="{{ part.pictureURL }}" alt="Part Image"></td>
+                <td>{{ part.number }}</td>
+                <td>{{ part.description }}</td>
+                <td>${{ part.price }}</td>
+                <td>{{ part.weight }} lbs</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
