@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Credit Card Form</title>
+</head>
+<body>
+    <h2>Test Credit Card Payment</h2>
+    <form action="process_card.php" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="credit_card">Credit Card Number:</label>
+        <input type="text" id="credit_card" name="credit_card" required pattern="\d{15,16}" title="Credit card number must be 15-16 digits"><br><br>
+
+        <label for="expiration_date">Expiration Date (mm/yyyy):</label>
+        <input type="text" id="expiration_date" name="expiration_date" required pattern="(0[1-9]|1[0-2])\/(\d{4})" title="Expiration date must be in mm/yyyy format"><br><br>
+
+        <label for="selected_items">Select Items:</label><br>
+        <select id="selected_items" name="selected_items[]" multiple required>
+            <option value="item1">Item 1 ($50.00)</option>
+            <option value="item2">Item 2 ($75.00)</option>
+            <option value="item3">Item 3 ($30.00)</option>
+        </select><br><br>
+
+        <input type="submit" value="Checkout">
+    </form>
+</body>
+</html>
