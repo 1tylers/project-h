@@ -31,9 +31,10 @@
     {
       $description = $_POST['search'];
 
-      $sql = "SELECT number, description FROM parts WHERE description LIKE '$description'";
+      $sql = "SELECT number, description FROM parts WHERE description LIKE '%$description%'";
 
-      $stmt = $pdo->query($sql);
+
+      $stmt = $pdo1->query($sql);
       $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     ?>
@@ -81,3 +82,5 @@
 
 
 </html>
+
+
