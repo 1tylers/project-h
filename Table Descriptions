@@ -29,7 +29,7 @@ ORDERS
 +-------------+--------------+------+-----+---------+-------+
 | Field       | Type         | Null | Key | Default | Extra |
 +-------------+--------------+------+-----+---------+-------+
-| OrderID     | char(8)      | NO   | PRI | NULL    |       |
+| OrderID     | varchar(10)  | NO   | PRI | NULL    |       |
 | Address     | varchar(50)  | NO   |     | NULL    |       |
 | Email       | varchar(40)  | NO   |     | NULL    |       |
 | TotalPrice  | decimal(5,2) | NO   |     | NULL    |       |
