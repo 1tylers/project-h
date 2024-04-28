@@ -1,0 +1,48 @@
+BRACKETS
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| Bracket | varchar(30)   | NO   | PRI | NULL    |       |
+| Min     | decimal(10,2) | YES  |     | NULL    |       |
+| Max     | decimal(10,2) | YES  |     | NULL    |       |
+| Price   | decimal(10,2) | YES  |     | NULL    |       |
++---------+---------------+------+-----+---------+-------+
+
+EMPLOYEES
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| UserID   | char(8)     | NO   | PRI | NULL    |       |
+| Password | varchar(15) | NO   |     | NULL    |       |
+| Type     | char(1)     | NO   |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
+INVENTORY
++-----------+---------+------+-----+---------+-------+
+| Field     | Type    | Null | Key | Default | Extra |
++-----------+---------+------+-----+---------+-------+
+| ProductID | int(11) | NO   | PRI | NULL    |       |
+| Quantity  | int(11) | NO   |     | NULL    |       |
++-----------+---------+------+-----+---------+-------+
+
+ORDERS
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| OrderID     | char(8)      | NO   | PRI | NULL    |       |
+| Address     | varchar(50)  | NO   |     | NULL    |       |
+| Email       | varchar(40)  | NO   |     | NULL    |       |
+| TotalPrice  | decimal(5,2) | NO   |     | NULL    |       |
+| TotalWeight | decimal(5,2) | NO   |     | NULL    |       |
+| Datee       | date         | NO   |     | NULL    |       |
+| Status      | varchar(10)  | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+
+PRODUCTSTORED
++-----------+---------+------+-----+---------+-------+
+| Field     | Type    | Null | Key | Default | Extra |
++-----------+---------+------+-----+---------+-------+
+| OrderID   | char(8) | NO   | PRI | NULL    |       |
+| ProductID | int(11) | NO   | MUL | NULL    |       |
+| Quantity  | int(11) | NO   |     | NULL    |       |
++-----------+---------+------+-----+---------+-------+
