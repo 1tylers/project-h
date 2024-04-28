@@ -1,9 +1,69 @@
+<!DOCTYPE html>
 <html>
 <head>
-<title>CHECKOUT</title>
+    <title>CHECKOUT</title>
+    <style>
+        /* CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h2 {
+            text-align: center;
+            color: #343a40;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #dee2e6;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #e9ecef;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="email"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-       <?php
+    <?php
     session_start();
 
     $dsn = "mysql:host=courses;dbname=z1957829";
@@ -14,47 +74,49 @@
         echo "Connection to database failed: " . $e->getMessage();
     }
     $weight= $_SESSION['weight'];
-$sql = "SELECT Price FROM Brackets WHERE Min <= :weight AND Max >= :weight";
+    $sql = "SELECT Price FROM Brackets WHERE Min <= :weight AND Max >= :weight";
 
-try {
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':weight', $weight);
-    $stmt->execute();
-    
-    if ($stmt->rowCount() > 0) {
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        $shipping = $row["Price"];
-      
-    } else {
-        echo "No price found for the given weight.";
+    try {
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':weight', $weight);
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $shipping = $row["Price"];
+
+        } else {
+            echo "No price found for the given weight.";
+        }
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
     }
-} catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
-}
     $subtotal = $_SESSION['total'];
     $total = $subtotal + $shipping;
     $_SESSION['final']=$total;
     ?>
-      <table border="1">
-    <tr>
-        <th>Order</th>
-        <th>Taking</th>
-    </tr>
-    <tr>
-        <td>Subtotal:</td>
-        <td><?php echo "$" . number_format($subtotal, 2); ?></td>
-    </tr>
-    <tr>
-        <td>Shipping and Handling:</td>
-        <td><?php echo "$" . number_format($shipping, 2); ?></td>
-    </tr>
-    <tr>
-        <td>Total:</td>
-        <td><?php echo "$" . number_format($total, 2); ?></td>
-    </tr>
-</table>
-      <h2>Delivery</h2>
-      <form action="hcheckout.php" method="post">
+
+    <table>
+        <tr>
+            <th>Order</th>
+            <th>Taking</th>
+        </tr>
+        <tr>
+            <td>Subtotal:</td>
+            <td><?php echo "$" . number_format($subtotal, 2); ?></td>
+        </tr>
+        <tr>
+            <td>Shipping and Handling:</td>
+            <td><?php echo "$" . number_format($shipping, 2); ?></td>
+        </tr>
+        <tr>
+            <td>Total:</td>
+            <td><?php echo "$" . number_format($total, 2); ?></td>
+        </tr>
+    </table>
+
+    <h2>Delivery</h2>
+    <form action="hcheckout.php" method="post">
         <label for="name">Name:</label>
         <input type="text" name="name" required><br>
         <label for="email">Email:</label>
@@ -65,10 +127,11 @@ try {
 
         <label for="address">Address:</label>
         <input type="text" name="address" required><br>
+        
         <h2>Checkout</h2>
         <label for="name">Cardholder Name:</label><br>
         <input type="text" id="name" name="name" required><br>
-         <label for="cc">Credit Card Number:</label><br>
+        <label for="cc">Credit Card Number:</label><br>
         <input type="text" id="cc" name="cc" required><br>
         
         <label for="exp">Expiration Date (MM/YYYY):</label><br>
@@ -76,8 +139,6 @@ try {
 
         <input type="submit" name="submit_order" value="Place Order">
     </form>
-
-
 </body>
 </html>
 
@@ -95,9 +156,10 @@ if(isset($_POST['submit_order'])) {
     $credit_card_number = $_POST['cc'];
     $expiration_date = $_POST['exp'];
     $total = $_SESSION['final'];
+    $trans = '907-' . rand(100000000, 999999999) . '-244';
     $data = array(
         'vendor' => 'Project-H',
-        'trans' => '907-987654321-233',
+        'trans' => $trans,
         'cc' => $credit_card_number,
         'name' => $cardholder_name, 
         'exp' => $expiration_date, 
@@ -140,7 +202,7 @@ if(isset($_POST['submit_order'])) {
         try {
             $pdo = new PDO($dsn, "z1957829", "2004May16");
             // Prepare the SQL statement
-            $stmt = $pdo->prepare("INSERT INTO ORDERS (OrderID, Address, Email, TotalPrice, TotalWeight, Datee, Status) VALUES (?, ?, ?, ?, ?, CURDATE(), ?)");
+            $stmt = $pdo->prepare("INSERT INTO Orders (OrderID, Address, Email, TotalPrice, TotalWeight, Datee, Status) VALUES (?, ?, ?, ?, ?, CURDATE(), ?)");
             $weight= $_SESSION['weight'];
             // Bind parameters
             $stmt->bindParam(1, $response['authorization']);
@@ -164,7 +226,7 @@ if(isset($_POST['submit_order'])) {
                 $stmt->execute();
                 
                 // Update product quantity
-                $updateProductSQL = "UPDATE Product SET Quantity = Quantity - ? WHERE ProductID = ?";
+                $updateProductSQL = "UPDATE Inventory SET Quantity = Quantity - ? WHERE ProductID = ?";
                 $stmt = $pdo->prepare($updateProductSQL);
                 $stmt->bindParam(1, $quantity);
                 $stmt->bindParam(2, $product_id);
@@ -176,3 +238,4 @@ if(isset($_POST['submit_order'])) {
     }
 }
 ?>
+
