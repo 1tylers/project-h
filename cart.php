@@ -144,9 +144,16 @@ body {
     ?>
     <input type='submit' value='Update Quantities'>
 </form>
-<form action="hcheckout.php" method="post">
-    <input type='submit' value='Checkout'>
-</form>
+<?php
+    // Display checkout button only if the cart is not empty
+    if ($_SESSION['items'] > 0) {
+        echo "<form action='hcheckout.php' method='post'>";
+        echo "<input type='submit' value='Checkout'>";
+        echo "</form>";
+    } else {
+        echo "<p>Your cart is empty. Please add items to proceed to checkout.</p>";
+    }
+    ?>
 <form action="parts.php" method="get">
     <input type='submit' value='Continue Shopping'>
 </form>
