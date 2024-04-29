@@ -60,9 +60,38 @@
         input[type="submit"]:hover {
             background-color: #0056b3;
         }
+             /* Navbar styles */
+        .navbar {
+            overflow: hidden;
+            background-color: #343a40;
+            border-radius: 8px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .navbar a {
+            display: block;
+            color: #f8f9fa;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background-color: #495057;
+            }
     </style>
 </head>
 <body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="parts.php">Main Page</a>
+        <a href="cart.php">Cart</a>
+        <a href="employee_login.php">Employee Login</a>
+    </div>
     <?php
     session_start();
 
@@ -115,8 +144,9 @@
         </tr>
     </table>
 
-    <h2>Delivery</h2>
-    <form action="hcheckout.php" method="post">
+    
+    <form id="checkoutForm" action="hcheckout.php" method="post">
+        <h2>Delivery</h2>
         <label for="name">Name:</label>
         <input type="text" name="name" required><br>
         <label for="email">Email:</label>
@@ -130,7 +160,7 @@
         
         <h2>Checkout</h2>
         <label for="name">Cardholder Name:</label><br>
-        <input type="text" id="name" name="name" required><br>
+        <input type="text" id="name" name="cname" required><br>
         <label for="cc">Credit Card Number:</label><br>
         <input type="text" id="cc" name="cc" required><br>
         
@@ -139,6 +169,16 @@
 
         <input type="submit" name="submit_order" value="Place Order">
     </form>
+
+    <script>
+        // JavaScript function to hide the form and display a confirmation popup
+        function handleSuccess() {
+            // Hide the form
+            document.getElementById("checkoutForm").style.display = "none";
+            // Display a confirmation popup
+            alert("Your purchase was successful. Thank you!");
+        }
+    </script>
 </body>
 </html>
 
@@ -152,7 +192,7 @@ if(isset($_POST['submit_order'])) {
     $address = $_POST['address'];
     
     // Collect payment information
-    $cardholder_name = $_POST['name'];
+    $cardholder_name = $_POST['cname'];
     $credit_card_number = $_POST['cc'];
     $expiration_date = $_POST['exp'];
     $total = $_SESSION['final'];
@@ -194,7 +234,8 @@ if(isset($_POST['submit_order'])) {
         }
     } else {
         // Display the authorization number if successful
-        echo "Authorization Number: " . $response['authorization'];
+        echo "Thank you for your purchase " . $name . "<br>";
+        echo "Order Number: " . $response['authorization'];
         
         // Update the ORDERS table
         $dsn = "mysql:host=courses;dbname=z1957829";
@@ -232,10 +273,18 @@ if(isset($_POST['submit_order'])) {
                 $stmt->bindParam(2, $product_id);
                 $stmt->execute();
             }
+          
+            // Call JavaScript function to handle success
+            echo "<script>handleSuccess();</script>";
+            session_unset();
+            session_destroy();
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
         }
     }
 }
 ?>
+
+
+
 
