@@ -4,10 +4,10 @@ session_start();
 // Include necessary files
 include 'info.php';
 // Name of the DB
-$dsn = "mysql:host=courses;dbname=z1968549";
+$dsn = "mysql:host=courses;dbname=z1957829";
 // Test the connection
 try {
-    $pdo = new PDO($dsn, "z1968549", "2004Jul30");
+    $pdo = new PDO($dsn, "z1957829", "2004May16");
 } catch (PDOexception $e) {
     echo "Connection to database failed: " . $e->getMessage();
 }
@@ -40,7 +40,7 @@ if (isset($_POST["Add"])) {
     }//end of if statement
     else
     {
-      echo "Error::Max Quantity for item is $qtyCheck";  
+       echo "<script>alert('Error: Max Quantity for item is $qtyCheck');</script>";  
     }//end of else statement
 }
 ?>
@@ -145,10 +145,9 @@ if (isset($_POST["Add"])) {
 <body>
     <!-- Navbar -->
     <div class="navbar">
-        <a href="main_page.php">Main Page</a>
+        <a href="parts.php">Main Page</a>
         <a href="cart.php">Cart</a>
         <a href="employee_login.php">Employee Login</a>
-        <a href="track_order.php">Track Order</a>
     </div>
     <h1>Welcome to Project H</h1>
     <div class="container">
@@ -160,9 +159,9 @@ if (isset($_POST["Add"])) {
         $password1 = 'student';
 
         $host2 = 'courses';
-        $dbname2 = 'z1968549';
-        $user2 = 'z1968549';
-        $password2 = '2004Jul30';
+        $dbname2 = 'z1957829';
+        $user2 = 'z1957829';
+        $password2 = '2004May16';
 
         try {
             // Connect to the first MySQL database
