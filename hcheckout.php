@@ -251,7 +251,7 @@ if(isset($_POST['submit_order'])) {
             $stmt->bindParam(3, $email);
             $stmt->bindParam(4, $total);
             $stmt->bindParam(5, $weight); // You need to define $weight
-            $stmt->bindValue(6, 'Placed');
+            $stmt->bindValue(6, 'Processing');
 
             // Execute the statement
             $stmt->execute();
