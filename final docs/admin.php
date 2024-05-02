@@ -125,12 +125,12 @@
 
 	  if (!empty($start_date))
 	  {
-        $sql .= " AND OrderDate >= '$start_date'";
+        $sql .= " AND Datee >= '$start_date'";
 	  }
 
 	  if (!empty($end_date))
 	  {
-        $sql .= " AND OrderDate <= '$end_date'";
+        $sql .= " AND Datee <= '$end_date'";
 	  }
 
 	  if (!empty($status))
