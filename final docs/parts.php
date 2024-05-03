@@ -52,7 +52,7 @@ if (isset($_POST["Add"])) {
 <!--- pages for the assignment can be reached here												--->
 <html>
 	<head>
-		<title> Main Page - Funky Shop </title>
+		<title> Main Page - Project H</title>
    <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
