@@ -61,7 +61,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Employee Login</title>
 
 	<style>
 
