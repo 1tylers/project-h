@@ -101,7 +101,7 @@
                 echo "<h2> Shipping Label for OrderID: $orderNum </h2>";
 
                 //query to get results
-                $query = "SELECT Email, TotalPrice, Datee FROM Orders WHERE OrderID='$orderNum'";
+                $query = "SELECT Address, Email, TotalPrice, Datee FROM Orders WHERE OrderID='$orderNum'";
                 $stmt = $pdo->query($query);
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -116,7 +116,8 @@
 
                     //print out the headers of the file
                     echo "<tr>";
-                    echo "<th> EMAIL </th>";
+                    echo "<th> EMAIL </th>";                        
+                    echo "<th> ADDRESS </th>";
                     echo "<th> ORDER TOTAL </th>";
                     echo "<th> DATE </th>";
                     echo "</tr>";
@@ -125,6 +126,7 @@
                     echo "<tr>";    
                     //fill row with data
                     echo "<td> {$result['Email']} </td>";
+                    echo "<td> {$result['Address']} </td>";
                     echo "<td> {$result['TotalPrice']} </td>";
                     echo "<td> {$result['Datee']} </td>";
                     //close the row
@@ -198,6 +200,13 @@
                         echo "<td> No description found </td>";
                     }
                     echo "</tr>";
+
+                    $to = "navicod2016@gmail.com";
+                    $subject = "My subject";
+                    $txt = "Hello world!";
+                    $headers = "From:legendofnavi1090@gmail.com" . "\r\n";
+
+                    mail($to, $subject, $txt, $headers);
                 }
             }
         }
