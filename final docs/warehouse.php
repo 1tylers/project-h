@@ -2,6 +2,14 @@
 
 <!--- Connect to the server --->
 <?php
+
+	session_start();
+
+	if(!isset($_SESSION["username"]))
+	{
+		header("location:login.php");
+	}
+
 	//name of DB
 	$dsn = "mysql:host=courses;dbname=z1957829";
 
@@ -151,5 +159,9 @@
 				echo "</table>";
 			} //end of else statement
 		?>
+
+		<a href="logout.php">Logout</a>
+
 	</body>
 </html>
+
