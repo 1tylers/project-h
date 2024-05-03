@@ -7,7 +7,15 @@
  <body>
 
  <h1>Admin Interface</h1>
-  <?php 
+  <?php
+
+  	session_start();
+
+  	if(!isset($_SESSION["username"]))
+  	{
+  		header("location:login.php");
+  	}
+
     // Name of the DB
     $dsn = "mysql:host=courses;dbname=z1957829";
 
@@ -201,7 +209,10 @@
   ?>
   </table><br><br>
 
+	<a href="logout.php">Logout</a>
+
  </body>
 
 
 </html>
+
