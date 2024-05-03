@@ -269,7 +269,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["updateStatus"])) {
             //query to get results
             $query2 = "SELECT ProductID, Quantity FROM ProductStored WHERE OrderID='$orderNum'";
             $stmt2 = $pdo1->query($query2);
-            $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+            $result2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
             //query to get description
             $query3 = "SELECT description FROM parts WHERE number='{$result2['ProductID']}'";
             $stmt3 = $pdo2->query($query3);
@@ -286,33 +286,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["updateStatus"])) {
                 echo "<tr>";
                 echo "<th> PART NUMBER </th>";
                 echo "<th> QUANTITY </th>";
+                echo "<th> DESCRIPTION </th>";
                 echo "</tr>";
+
+                foreach ($result2 as $row)
+                {
                 //create a row
-                echo "<tr>";
+                  echo "<tr>";
                 //fill row with data
-                echo "<td> {$result2['ProductID']} </td>";
+                  echo "<td> {$row['ProductID']} </td>";
                     //echo "<td> {$result3['description']} </td>";                    
-                    echo "<td> {$result2['Quantity']} </td>";
+                  echo "<td> {$row['Quantity']} </td>";
+
+                  $query3 = "SELECT description FROM parts WHERE number='{$row['ProductID']}'";
+                  $stmt3 = $pdo2->query($query3);
+                  $result3 = $stmt3->fetch(PDO::FETCH_ASSOC);
+
+                  echo "<td> {$result3['description']} </td>";
                 //close the row
-                echo "</tr>";
+                  echo "</tr>";
+                }
                 //close the table
                 echo "</table><br>";
                 //output description
-                echo "<table>";
-                echo "<tr>";
-                echo "<th> DESCRIPTION </th>";
-                echo "</tr>";
-                echo "<tr>";
-               
-                if ($result3) {
-                    echo "<td> {$result3['description']} </td>";
-                } else {
-                    echo "<td> No description found </td>";
-                }
-                echo "</tr>";
+                echo "<table>"; 
                  echo "<th> Total </th>";
                  echo "<tr><td> {$result4['TotalPrice']} </td></tr>";
-                echo "</table>";
+                echo "</table><br>";
                 echo '<button onclick="window.print();" class="noPrint">Print</button>';
 
             }
@@ -320,7 +320,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["updateStatus"])) {
     }
     ?>
 
-	<br>
+	<br><br>
 	<a href="logout.php" class="logout">Logout</a>
     
 </div>
