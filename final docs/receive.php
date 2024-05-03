@@ -8,6 +8,14 @@
 
  <body>
    <?php
+
+	session_start();
+
+	if(!isset($_SESSION["username"]))
+	{
+		header("location:login.php");
+	}
+
     // Name of the DB
     $dsn = "mysql:host=courses;dbname=z1957829";
 
@@ -111,6 +119,9 @@
       echo "No products found.";
     }
   ?>
+
+	<a href="logout.php">Logout</a>
+
  </body>
 
 
