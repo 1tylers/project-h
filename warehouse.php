@@ -149,6 +149,7 @@
                 echo "<option value='Delivered' " . ($row['Status'] == 'Delivered' ? 'selected' : '') . ">Delivered</option>";
                 echo "</select>";
                 echo "</td>";
+                echo "<input type='hidden' name='orderNumber' value='{$row['OrderID']}'>";
                 echo "<td><input class='status-btn' type='submit' name='updateStatus' value='Update'></td>";
                 echo "</form>";
                 echo "<td>";
@@ -170,7 +171,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["updateStatus"])) {
     // Check if the form is submitted and the updateStatus button is clicked
     
     // Get the order ID and new status from the form
-    $orderId = $_POST["orderNum"];
+    $orderId = $_POST["orderNumber"];
     $newStatus = $_POST["status"];
 
     try {
