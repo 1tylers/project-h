@@ -88,7 +88,7 @@ body {
     <div class="navbar">
         <a href="parts.php">Main Page</a>
         <a href="cart.php">Cart</a>
-        <a href="employee_login.php">Employee Login</a>
+        <a href="login.php">Employee Login</a>
     </div>
 <h1>Shopping Cart</h1>
 <form action="cart.php" method="post">
