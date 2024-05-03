@@ -91,14 +91,14 @@
     <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST")
         {
-            // Check if print invoice button clicked
-            if (isset($_POST["printInvoice"])) {
+            // Check if print shipping label button clicked
+            if (isset($_POST["printShippingLabel"])) {
                 $orderNum = $_POST["orderNum"];
 
                 // Execute query to print invoice
                 // (Code for printing invoice)
 
-                echo "<h2> Invoice for OrderID: $orderNum </h2>";
+                echo "<h2> Shipping Label for OrderID: $orderNum </h2>";
 
                 //query to get results
                 $query = "SELECT Email, TotalPrice, Datee FROM Orders WHERE OrderID='$orderNum'";
@@ -134,14 +134,14 @@
                     echo "</table>";
                 }
             }
-            // Check if print shipping label button clicked
-            elseif (isset($_POST["printShippingLabel"])) {
+            // Check if print invoice button clicked
+            elseif (isset($_POST["printInvoice"])) {
                 $orderNum = $_POST["orderNum"];
 
                 // Execute query to print shipping label
                 // (Code for printing shipping label)
 
-                echo "<h2> Shipping Label for OrderID: $orderNum </h2>";
+                echo "<h2> Invoice for OrderID: $orderNum </h2>";
 
                 //query to get results
                 $query2 = "SELECT ProductID, Quantity FROM ProductStored WHERE OrderID='$orderNum'";
