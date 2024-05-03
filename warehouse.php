@@ -144,9 +144,9 @@
                 echo "<td>";
                 echo "<form method='POST'>";
                 echo "<select class='status-select' name='status'>";
-                echo "<option value='processing' " . ($row['Status'] == 'processing' ? 'selected' : '') . ">Processing</option>";
-                echo "<option value='shipped' " . ($row['Status'] == 'shipped' ? 'selected' : '') . ">Shipped</option>";
-                echo "<option value='delivered' " . ($row['Status'] == 'delivered' ? 'selected' : '') . ">Delivered</option>";
+                echo "<option value='Processing' " . ($row['Status'] == 'Processing' ? 'selected' : '') . ">Processing</option>";
+                echo "<option value='Shipped' " . ($row['Status'] == 'Shipped' ? 'selected' : '') . ">Shipped</option>";
+                echo "<option value='Delivered' " . ($row['Status'] == 'Delivered' ? 'selected' : '') . ">Delivered</option>";
                 echo "</select>";
                 echo "</td>";
                 echo "<td><input class='status-btn' type='submit' name='updateStatus' value='Update'></td>";
